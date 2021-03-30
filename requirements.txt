@@ -9,5 +9,5 @@ lxml
 mako
 odoorpc
 openupgradelib
-pysftp
 pygount
+pysftp

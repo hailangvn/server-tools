@@ -7,5 +7,7 @@ from odoo import SUPERUSER_ID, api
 
 def analyse_installed_modules(cr, registry):
     env = api.Environment(cr, SUPERUSER_ID, {})
-    installed_modules = env["ir.module.module"].search([("state", "=", "installed")])
+    installed_modules = env["ir.module.module"].search(
+        ["|", ("state", "=", "installed"), ("name", "=", "module_analysis")]
+    )
     installed_modules.button_analyse_code()
