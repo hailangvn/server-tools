@@ -133,11 +133,11 @@ def uninstall_hook_for_submodules(
                 for main_image in main_images:
                     params = {"id": main_image.owner_id}
                     if field and not Field.attachment:
-                        params["image"] = main_image.image_main
+                        params["image"] = main_image.image_1920
                     if field_medium and not FieldMedium.attachment:
-                        params["image_medium"] = main_image.image_medium
+                        params["image_medium"] = main_image.image_128
                     if field_small and not FieldSmall.attachment:
-                        params["image_small"] = main_image.image_small
+                        params["image_small"] = main_image.image_64
                     cr.execute(query, params)  # pylint: disable=sql-injection
             # fields.Binary(attachment=True), save the ir_attachment record ID
             if (
@@ -148,11 +148,11 @@ def uninstall_hook_for_submodules(
                 for main_image in main_images:
                     owner = Model.browse(main_image.owner_id)
                     if field and Field.attachment:
-                        Field.write(owner, main_image.image_main)
+                        Field.write(owner, main_image.image_1920)
                     if field_medium and FieldMedium.attachment:
-                        FieldMedium.write(owner, main_image.image_medium)
+                        FieldMedium.write(owner, main_image.image_128)
                     if field_small and FieldSmall.attachment:
-                        FieldSmall.write(owner, main_image.image_small)
+                        FieldSmall.write(owner, main_image.image_64)
         images.unlink()
 
 

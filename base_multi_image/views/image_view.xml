@@ -64,7 +64,7 @@
                     </group>
                     <group string="Preview">
                         <field
-                                name="image_medium"
+                                name="image_128"
                                 widget="image"
                                 readonly="True"
                                 nolabel="1"
@@ -94,10 +94,10 @@
 </record>
 
 <record id="image_kanban_view" model="ir.ui.view">
-    <field name="name">Product multi image kanban</field>
+    <field name="name">Multi image kanban</field>
     <field name="model">base_multi_image.image</field>
     <field name="arch" type="xml">
-        <kanban string="Product Images">
+        <kanban string="Images">
             <field name="id" />
             <field name="name" />
             <field name="storage" />
@@ -113,25 +113,25 @@
                         <div class="oe_module_vignette">
                             <a type="open">
                               <img
-                                        t-att-alt="record.name"
-                                        t-att-src="kanban_image(
+                                  t-att-alt="record.name"
+                                  t-att-src="kanban_image(
                                       'base_multi_image.image',
-                                      'image_small',
+                                      'image_128',
                                       record.id.raw_value)"
-                                        class="oe_kanban_image"
-                                    />
+                                  class="oe_kanban_image"
+                              />
                             </a>
                             <div class="oe_module_desc">
                                 <div
-                                        class="oe_kanban_box_content oe_kanban_color_bglight oe_kanban_color_border"
-                                    >
+                                    class="oe_kanban_box_content oe_kanban_color_bglight oe_kanban_color_border"
+                                >
                                     <table class="oe_kanban_table">
                                         <tr>
                                             <td
-                                                    class="oe_kanban_title1"
-                                                    align="left"
-                                                    valign="middle"
-                                                >
+                                                class="oe_kanban_title1"
+                                                align="left"
+                                                valign="middle"
+                                            >
                                                 <h4>
                                                     <a type="open">
                                                         <field name="name" />
