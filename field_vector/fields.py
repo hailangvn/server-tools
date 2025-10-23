@@ -122,31 +122,16 @@ class Vector(fields.Field):
     prefetch = False
     autopad = True
 
-    def __init__(
-        self,
-        dimensions=fields.Default,
-        autopad=fields.Default,
-        string=fields.Default,
-        **kwargs,
-    ):
-        super().__init__(
-            dimensions=dimensions, string=string, autopad=autopad, **kwargs
-        )
-
-    def _setup_attrs(self, model_class, name):
-        res = super()._setup_attrs(model_class, name)
-        if (
-            self.dimensions == fields.Default
-            or self.dimensions is None
-            or not isinstance(self.dimensions, int)
-        ):
+    def _setup_attrs__(self, model_class, name):
+        res = super()._setup_attrs__(model_class, name)
+        if self.dimensions is None or not isinstance(self.dimensions, int):
             raise ValueError(
                 "The size of the vector field must be an integer and cannot be None."
             )
         return res
 
     @property
-    def column_type(self):
+    def _column_type(self):
         return ("vector", f"vector({self.dimensions})")
 
     def get_current_vector_size(self, cr, table, column):
@@ -163,10 +148,12 @@ class Vector(fields.Field):
 
     def update_db_column(self, model, column):
         if column:
-            db_size = self.get_current_vector_size(model._cr, model._table, self.name)
+            db_size = self.get_current_vector_size(
+                model.env.cr, model._table, self.name
+            )
             if db_size is not None and db_size != self.dimensions:
                 sql.convert_column(
-                    model._cr, model._table, self.name, self.column_type[1]
+                    model.env.cr, model._table, self.name, self._column_type[1]
                 )
         return super().update_db_column(model, column)
 
